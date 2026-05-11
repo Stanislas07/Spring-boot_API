@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bibliotheque.api.dto.LivreRequest;
 import com.bibliotheque.api.entity.Livre;
 import com.bibliotheque.api.service.LivreService;
+
 
 @RestController               // Indique que cette classe est un controller REST
 @RequestMapping("/api/livres") // Préfixe de toutes les routes de ce controller
@@ -42,8 +44,8 @@ public class LivreController {
 
     // POST /api/livres → Créer un nouveau livre
     @PostMapping
-    public ResponseEntity<Livre> createLivre(@RequestBody Livre livre) {
-        Livre nouveauLivre = livreService.createLivre(livre);
+    public ResponseEntity<Livre> createLivre(@RequestBody LivreRequest request) {
+        Livre nouveauLivre = livreService.createLivre(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(nouveauLivre);  // HTTP 201
     }
 

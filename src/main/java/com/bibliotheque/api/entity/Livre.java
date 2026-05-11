@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,9 +27,11 @@ public class Livre {
     private Long id;
 
     @Column(nullable = false)    // La colonne ne peut pas être NULL
+    @NotBlank(message = "Le titre est obligatoire")
     private String titre;
 
     @Column(nullable = false)
+    @Pattern(regexp = "\\d{3}-\\d{1,5}-\\d{1,7}-\\d{1,7}-\\d{1}", message = "ISBN invalide")
     private String isbn;
 
     @Enumerated(EnumType.STRING)    // Stocke la catégorie comme texte (ex: "ROMAN")

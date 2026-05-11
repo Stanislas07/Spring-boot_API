@@ -27,8 +27,6 @@ public class AuteurService {
 
     // Créer un nouveau auteur
     public Auteur createAuteur(Auteur auteur) {
-        // Règle métier : l'ISBN doit être unique
-        // (vous pouvez ajouter des validations ici)
         return auteurRepository.save(auteur);
     }
 

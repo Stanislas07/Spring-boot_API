@@ -43,8 +43,8 @@ POST http://localhost:8080/api/auteurs
 Content-Type: application/json
 
 {
-  "nom": "J",
-  "prenom": "Rowling"
+  "nom": "Jean",
+  "prenom": "Paul"
 }
 
 ### Supprimer un livre
@@ -61,5 +61,5 @@ Content-Type: application/json
   "titre": "Harry Potter",
   "isbn": "978-2-07-054127-4",
   "categorie": "ROMAN",
-  "auteur": 1
+  "auteurId": 1
 }

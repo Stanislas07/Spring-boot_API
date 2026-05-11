@@ -1,18 +1,25 @@
 package com.bibliotheque.api.service;
 
-import com.bibliotheque.api.entity.Livre;
-import com.bibliotheque.api.repository.LivreRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.bibliotheque.api.dto.LivreRequest;
+import com.bibliotheque.api.entity.Auteur;
+import com.bibliotheque.api.entity.Livre;
+import com.bibliotheque.api.repository.AuteurRepository;
+import com.bibliotheque.api.repository.LivreRepository;
 
 @Service    // Indique que cette classe est un service Spring
 public class LivreService {
 
     @Autowired    // Spring injecte automatiquement le repository
     private LivreRepository livreRepository;
+
+    @Autowired 
+    private AuteurRepository auteurRepository;
 
     // Récupérer tous les livres
     public List<Livre> getAllLivres() {
@@ -25,9 +32,16 @@ public class LivreService {
     }
 
     // Créer un nouveau livre
-    public Livre createLivre(Livre livre) {
-        // Règle métier : l'ISBN doit être unique
-        // (vous pouvez ajouter des validations ici)
+    public Livre createLivre(LivreRequest request) {
+        Livre livre = new Livre();
+        livre.setTitre(request.getTitre());
+        livre.setIsbn(request.getIsbn());
+        livre.setCategorie(request.getCategorie());
+        if(request.getAuteurId() != null) {
+            Auteur auteur = auteurRepository.findById(request.getAuteurId())
+                    .orElseThrow(() -> new IllegalArgumentException("Auteur introuvable avec l'id : " + request.getAuteurId()));
+            livre.setAuteur(auteur);
+        }
         return livreRepository.save(livre);
     }
 
