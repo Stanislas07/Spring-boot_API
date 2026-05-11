@@ -1,0 +1,65 @@
+### Lister tous les livres
+GET http://localhost:8080/api/livres
+
+### Récupérer le livre avec l'ID 1
+GET http://localhost:8080/api/livres/1
+
+### Créer un livre
+POST http://localhost:8080/api/livres
+Content-Type: application/json
+
+{
+  "titre": "Harry Potter",
+  "isbn": "978-2-07-054127-4",
+  "categorie": "ROMAN"
+}
+
+### Modifier un livre
+PUT http://localhost:8080/api/livres/1
+Content-Type: application/json
+
+{
+  "titre": "Le Seigneur des Anneaux (édition collector)",
+  "isbn": "978-2-07-061190-3",
+  "categorie": "ROMAN"
+}
+
+### Supprimer un livre
+DELETE http://localhost:8080/api/livres/1
+
+### Rechercher par titre
+GET http://localhost:8080/api/livres/search?titre=harry
+
+### Filtrer par catégorie
+GET http://localhost:8080/api/livres/categorie/MANGA
+
+
+-------------------------------------------------------------------------------------------
+### Lister tous les auteurs
+GET http://localhost:8080/api/auteurs
+
+### Créer un auteur
+POST http://localhost:8080/api/auteurs
+Content-Type: application/json
+
+{
+  "nom": "J",
+  "prenom": "Rowling"
+}
+
+### Supprimer un livre
+DELETE http://localhost:8080/api/livres/2
+
+### Lister tous les livres
+GET http://localhost:8080/api/livres
+
+### Créer un livre avec un auteur existant
+POST http://localhost:8080/api/livres
+Content-Type: application/json
+
+{
+  "titre": "Harry Potter",
+  "isbn": "978-2-07-054127-4",
+  "categorie": "ROMAN",
+  "auteur": 1
+}
