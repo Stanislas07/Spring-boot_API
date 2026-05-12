@@ -63,3 +63,24 @@ Content-Type: application/json
   "categorie": "ROMAN",
   "auteurId": 1
 }
+
+### Créer un livre sans titre
+POST http://localhost:8080/api/livres
+Content-Type: application/json
+
+{
+  "titre": "",
+  "isbn": "978-2-07-054127-4",
+  "categorie": "ROMAN"
+}
+
+// Créer un utilisateur
+POST http://localhost:8080/api/utilisateurs
+Content-Type: application/json
+
+{
+  "nom": "",
+  "prenom": "",
+  "numero_adherent": 0
+}
+

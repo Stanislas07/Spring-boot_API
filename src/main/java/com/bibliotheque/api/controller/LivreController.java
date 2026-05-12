@@ -19,6 +19,8 @@ import com.bibliotheque.api.dto.LivreRequest;
 import com.bibliotheque.api.entity.Livre;
 import com.bibliotheque.api.service.LivreService;
 
+import jakarta.validation.Valid;
+
 
 @RestController               // Indique que cette classe est un controller REST
 @RequestMapping("/api/livres") // Préfixe de toutes les routes de ce controller
@@ -44,11 +46,12 @@ public class LivreController {
 
     // POST /api/livres → Créer un nouveau livre
     @PostMapping
-    public ResponseEntity<Livre> createLivre(@RequestBody LivreRequest request) {
+    public ResponseEntity<Livre> createLivre(@Valid @RequestBody LivreRequest request) {
         Livre nouveauLivre = livreService.createLivre(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nouveauLivre);  // HTTP 201
+        return ResponseEntity.status(HttpStatus.CREATED).body(nouveauLivre);
     }
 
+    
     // PUT /api/livres/{id} → Modifier un livre
     @PutMapping("/{id}")
     public ResponseEntity<Livre> updateLivre(@PathVariable Long id,
