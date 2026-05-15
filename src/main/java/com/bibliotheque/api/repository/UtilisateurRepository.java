@@ -10,8 +10,6 @@ import com.bibliotheque.api.entity.Utilisateur;
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
-    // Vous pouvez aussi définir vos propres requêtes
-    // Spring les génère automatiquement à partir du nom de la méthode !
     List<Utilisateur> findByNomContainingIgnoreCase(String nom);
     List<Utilisateur> findByPrenom(String prenom);
     List<Utilisateur> findByNumAdherent(int numAdherent);

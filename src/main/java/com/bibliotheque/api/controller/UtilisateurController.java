@@ -45,20 +45,18 @@ public class UtilisateurController {
 
     // POST /api/utilisateurs → Créer un utilisateur
     @PostMapping
-    public ResponseEntity<Utilisateur> createUtilisateur(
-            @Valid @RequestBody UtilisateurRequest request) {
-
-        Utilisateur nouveauUtilisateur = utilisateurService.createUtilisateur(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nouveauUtilisateur);
+    public ResponseEntity<Utilisateur> createUtilisateur(@Valid @RequestBody UtilisateurRequest request) {
+            Utilisateur nouveauUtilisateur = utilisateurService.createUtilisateur(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nouveauUtilisateur);
     }
 
     // PUT /api/utilisateurs/{id} → Modifier un utilisateur
     @PutMapping("/{id}")
     public ResponseEntity<Utilisateur> updateUtilisateur(
             @PathVariable Long id,
-            @Valid @RequestBody UtilisateurRequest request) {
+            @Valid @RequestBody Utilisateur utilisateur) {
 
-        return utilisateurService.updateUtilisateur(id, request)
+        return utilisateurService.updateUtilisateur(id, utilisateur)
                 .map(utilisateurModifie -> ResponseEntity.ok(utilisateurModifie))
                 .orElse(ResponseEntity.notFound().build());
     }

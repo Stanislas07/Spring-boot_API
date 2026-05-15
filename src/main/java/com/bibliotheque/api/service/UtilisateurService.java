@@ -6,8 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bibliotheque.api.entity.Auteur;
-import com.bibliotheque.api.entity.Livre;
+import com.bibliotheque.api.dto.UtilisateurRequest;
 import com.bibliotheque.api.entity.Utilisateur;
 import com.bibliotheque.api.repository.UtilisateurRepository;
 
@@ -23,21 +22,16 @@ public class UtilisateurService {
     }
 
     // Récupérer un livre par son ID
-    public Optional<Utilisateur> getUtilisateurRepositoryById(Long id) {
+    public Optional<Utilisateur> getUtilisateurById(Long id) {
         return utilisateurRepository.findById(id);
     }
 
     // Créer un nouveau livre
-    public Utilisateur createLivre(UtilisateurRequest request) {
+    public Utilisateur createUtilisateur(UtilisateurRequest request) {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(request.getNom());
         utilisateur.setPrenom(request.getPrenom());
-        utilisateur.setNumero_adherent(request.getNumero_adherent);
-        if(request.getAuteurId() != null) {
-            Utilisateur utilisateur = utilisateurRepository.findById(request.getUtilisateurId())
-                    .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable avec l'id : " + request.getUtilisateurId()));
-            utilisateur.setUtilisateur(utilisateur);
-        }
+        utilisateur.setNumero_adherent(request.getNumero_adherent());
         return utilisateurRepository.save(utilisateur);
     }
 
@@ -46,7 +40,7 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id).map(utilisateurExistant -> {
             utilisateurExistant.setNom(utilisateurModifie.getNom());
             utilisateurExistant.setPrenom(utilisateurModifie.getPrenom());
-            utilisateurExistant.setNumAdherent(utilisateurModifie.getNumAdherent());
+            utilisateurExistant.setNumero_adherent(utilisateurModifie.getNumero_adherent());
             return utilisateurRepository.save(utilisateurExistant);
         });
     }
