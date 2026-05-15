@@ -17,9 +17,6 @@ public class UtilisateurService {
     @Autowired    // Spring injecte automatiquement le repository
     private UtilisateurRepository utilisateurRepository;
 
-    @Autowired 
-    private UtilisateurRepository auteurRepository;
-
     // Récupérer tous les utilisateurs
     public List<Utilisateur> getAllUtilisateurs() {
         return utilisateurRepository.findAll();
