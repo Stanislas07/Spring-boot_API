@@ -71,13 +71,35 @@ Content-Type: application/json
   "categorie": "ROMAN"
 }
 
-// Créer un utilisateur
+--------------------------------------------------------------------------------------------
+### Lister tous les utilisateurs
+GET http://localhost:8080/api/utilisateurs
+
+### Récupérer un utilisateur par ID
+GET http://localhost:8080/api/utilisateurs/1
+
+### Créer un utilisateur
 POST http://localhost:8080/api/utilisateurs
 Content-Type: application/json
 
 {
-  "nom": "",
-  "prenom": "",
-  "numero_adherent": 0
+  "nom": "Doe",
+  "prenom": "John",
+  "numeroAdherent": 12345
 }
+
+###
+
+### Modifier un utilisateur
+PUT http://localhost:8080/api/utilisateurs/1
+Content-Type: application/json
+
+{
+  "nom": "Doe",
+  "prenom": "Jane",
+  "numeroAdherent": 54321
+}
+
+### Supprimer un utilisateur
+DELETE http://localhost:8080/api/utilisateurs/1
 

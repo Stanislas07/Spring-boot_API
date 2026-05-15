@@ -31,7 +31,7 @@ public class UtilisateurService {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(request.getNom());
         utilisateur.setPrenom(request.getPrenom());
-        utilisateur.setNumero_adherent(request.getNumero_adherent());
+        utilisateur.setNumeroAdherent(request.getNumero_adherent());
         return utilisateurRepository.save(utilisateur);
     }
 
@@ -40,7 +40,7 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id).map(utilisateurExistant -> {
             utilisateurExistant.setNom(utilisateurModifie.getNom());
             utilisateurExistant.setPrenom(utilisateurModifie.getPrenom());
-            utilisateurExistant.setNumero_adherent(utilisateurModifie.getNumero_adherent());
+            utilisateurExistant.setNumeroAdherent(utilisateurModifie.getNumeroAdherent());
             return utilisateurRepository.save(utilisateurExistant);
         });
     }
@@ -65,7 +65,7 @@ public class UtilisateurService {
     }
 
     // Filtrer par numéro d'adhérent
-    public List<Utilisateur> findByNumAdherent(String numAdherent) {
-        return utilisateurRepository.findByPrenom(numAdherent);
+    public List<Utilisateur> findByNumeroAdherent(int numeroAdherent) {
+        return utilisateurRepository.findByNumeroAdherent(numeroAdherent);
     }
 }

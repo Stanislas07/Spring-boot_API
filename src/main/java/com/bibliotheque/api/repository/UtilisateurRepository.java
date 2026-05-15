@@ -12,5 +12,5 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
 
     List<Utilisateur> findByNomContainingIgnoreCase(String nom);
     List<Utilisateur> findByPrenom(String prenom);
-    List<Utilisateur> findByNumAdherent(int numAdherent);
+    List<Utilisateur> findByNumeroAdherent(int numeroAdherent);
 }
