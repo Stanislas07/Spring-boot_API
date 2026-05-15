@@ -88,8 +88,6 @@ Content-Type: application/json
   "numeroAdherent": 12345
 }
 
-###
-
 ### Modifier un utilisateur
 PUT http://localhost:8080/api/utilisateurs/1
 Content-Type: application/json
@@ -103,3 +101,30 @@ Content-Type: application/json
 ### Supprimer un utilisateur
 DELETE http://localhost:8080/api/utilisateurs/1
 
+--------------------------------------------------------------------------------------------
+### Lister tous les exemplaires
+GET http://localhost:8080/api/exemplaires
+
+### Récupérer un exemplaire par ID
+GET http://localhost:8080/api/exemplaires/1
+
+### Créer un exemplaire
+POST http://localhost:8080/api/exemplaires
+Content-Type: application/json
+
+{
+  "etat": "NEUF",
+  "disponible": true
+}
+
+### Modifier un exemplaire
+PUT http://localhost:8080/api/exemplaires/1
+Content-Type: application/json
+
+{
+  "etat": "MAUVAIS",
+  "disponible": false
+}
+
+### Supprimer un exemplaire
+DELETE http://localhost:8080/api/exemplaires/1
