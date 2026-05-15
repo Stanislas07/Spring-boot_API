@@ -47,9 +47,6 @@ Content-Type: application/json
   "prenom": "Paul"
 }
 
-### Supprimer un livre
-DELETE http://localhost:8080/api/livres/2
-
 ### Lister tous les livres
 GET http://localhost:8080/api/livres
 
