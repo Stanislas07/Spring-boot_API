@@ -31,7 +31,7 @@ public class Utilisateur {
     @NotBlank(message = "Le prénom est obligatoire")
     private String prenom;
 
-    @Column(name = "numero_adherent", nullable = false, unique = true)
+    @Column(name = "numeroAdherent", nullable = false, unique = true)
     @Min(value = 1, message = "Le numero d'adhérent doit être positif")
     private int numeroAdherent;
 }

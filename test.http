@@ -1,10 +1,15 @@
-### Lister tous les livres
+# LIVRES
+// Lister tous les livres
 GET http://localhost:8080/api/livres
 
-### Récupérer le livre avec l'ID 1
+###
+
+# Récupérer un livre par ID
 GET http://localhost:8080/api/livres/1
 
-### Créer un livre
+###
+
+// Créer un livre
 POST http://localhost:8080/api/livres
 Content-Type: application/json
 
@@ -14,7 +19,9 @@ Content-Type: application/json
   "categorie": "ROMAN"
 }
 
-### Modifier un livre
+###
+
+// Modifier un livre
 PUT http://localhost:8080/api/livres/1
 Content-Type: application/json
 
@@ -24,21 +31,42 @@ Content-Type: application/json
   "categorie": "ROMAN"
 }
 
-### Supprimer un livre
+###
+
+// Supprimer un livre
 DELETE http://localhost:8080/api/livres/1
 
-### Rechercher par titre
+###
+
+// Rechercher un livre par titre
 GET http://localhost:8080/api/livres/search?titre=harry
 
-### Filtrer par catégorie
+###
+
+// Filtrer par catégorie
 GET http://localhost:8080/api/livres/categorie/MANGA
 
+###
 
--------------------------------------------------------------------------------------------
-### Lister tous les auteurs
+// Créer un livre sans titre (test validation)
+POST http://localhost:8080/api/livres
+Content-Type: application/json
+
+{
+  "titre": "",
+  "isbn": "978-2-07-054127-4",
+  "categorie": "ROMAN"
+}
+
+###
+
+# AUTEURS
+// Lister tous les auteurs
 GET http://localhost:8080/api/auteurs
 
-### Créer un auteur
+###
+
+// Créer un auteur
 POST http://localhost:8080/api/auteurs
 Content-Type: application/json
 
@@ -46,11 +74,9 @@ Content-Type: application/json
   "nom": "Jean",
   "prenom": "Paul"
 }
+###
 
-### Lister tous les livres
-GET http://localhost:8080/api/livres
-
-### Créer un livre avec un auteur existant
+// Créer un livre avec un auteur existant
 POST http://localhost:8080/api/livres
 Content-Type: application/json
 
@@ -61,24 +87,20 @@ Content-Type: application/json
   "auteurId": 1
 }
 
-### Créer un livre sans titre
-POST http://localhost:8080/api/livres
-Content-Type: application/json
+###
 
-{
-  "titre": "",
-  "isbn": "978-2-07-054127-4",
-  "categorie": "ROMAN"
-}
-
---------------------------------------------------------------------------------------------
-### Lister tous les utilisateurs
+# UTILISATEURS
+// Lister tous les utilisateurs
 GET http://localhost:8080/api/utilisateurs
 
-### Récupérer un utilisateur par ID
+###
+
+// Récupérer un utilisateur par ID
 GET http://localhost:8080/api/utilisateurs/1
 
-### Créer un utilisateur
+###
+
+// Créer un utilisateur
 POST http://localhost:8080/api/utilisateurs
 Content-Type: application/json
 
@@ -88,7 +110,9 @@ Content-Type: application/json
   "numeroAdherent": 12345
 }
 
-### Modifier un utilisateur
+###
+
+// Modifier un utilisateur
 PUT http://localhost:8080/api/utilisateurs/1
 Content-Type: application/json
 
@@ -98,17 +122,25 @@ Content-Type: application/json
   "numeroAdherent": 54321
 }
 
-### Supprimer un utilisateur
+###
+
+// Supprimer un utilisateur
 DELETE http://localhost:8080/api/utilisateurs/1
 
---------------------------------------------------------------------------------------------
-### Lister tous les exemplaires
+###
+
+# EXEMPLAIRES
+// Lister tous les exemplaires
 GET http://localhost:8080/api/exemplaires
 
-### Récupérer un exemplaire par ID
+###
+
+// Récupérer un exemplaire par ID
 GET http://localhost:8080/api/exemplaires/1
 
-### Créer un exemplaire
+###
+
+// Créer un exemplaire
 POST http://localhost:8080/api/exemplaires
 Content-Type: application/json
 
@@ -117,7 +149,9 @@ Content-Type: application/json
   "disponible": true
 }
 
-### Modifier un exemplaire
+###
+
+// Modifier un exemplaire
 PUT http://localhost:8080/api/exemplaires/1
 Content-Type: application/json
 
@@ -126,5 +160,19 @@ Content-Type: application/json
   "disponible": false
 }
 
-### Supprimer un exemplaire
-DELETE http://localhost:8080/api/exemplaires/1
+###
+
+// Créer un exemplaire lié à un livre
+POST http://localhost:8080/api/exemplaires
+Content-Type: application/json
+
+{
+  "etat": "BON",
+  "disponible": true,
+  "livreId": 3
+}
+
+###
+
+// Supprimer un exemplaire
+DELETE http://localhost:8080/api/exemplaires/4

@@ -31,7 +31,7 @@ public class UtilisateurService {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(request.getNom());
         utilisateur.setPrenom(request.getPrenom());
-        utilisateur.setNumeroAdherent(request.getNumero_adherent());
+        utilisateur.setNumeroAdherent(request.getNumeroAdherent());
         return utilisateurRepository.save(utilisateur);
     }
 

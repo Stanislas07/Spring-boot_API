@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bibliotheque.api.dto.ExemplaireRequest;
@@ -32,7 +31,7 @@ public class ExemplaireController {
     // GET /api/exemplaires → Récupérer tous les exemplaires
     @GetMapping
     public ResponseEntity<List<Exemplaire>> getAllExemplaires() {
-        List<Exemplaire> exemplaires = exemplaireService.getAllExemplaire();
+        List<Exemplaire> exemplaires = exemplaireService.getAllExemplaires();
         return ResponseEntity.ok(exemplaires);    // HTTP 200 + liste des exemplaires en JSON
     }
 
@@ -70,16 +69,9 @@ public class ExemplaireController {
         return ResponseEntity.notFound().build();         // HTTP 404 si non trouvé
     }
 
-    // GET /api/exemplaires/search?etat=DISPONIBLE → Rechercher par état
-    @GetMapping("/search")
-    public ResponseEntity<List<Exemplaire>> searchByEtat(@RequestParam Exemplaire.Etat etat) {
-        List<Exemplaire> exemplaires = exemplaireService.getByEtat(etat);
-        return ResponseEntity.ok(exemplaires);
-    }
-
-    // GET /api/exemplaires/filter?etat=NEUF → Filtrer par état
-    @GetMapping("/filter")
-    public ResponseEntity<List<Exemplaire>> getByEtat(@RequestParam Exemplaire.Etat etat) {
+    // GET /api/exemplaires/etat/{etat} → Rechercher par état
+    @GetMapping("/etat/{etat}")
+    public ResponseEntity<List<Exemplaire>> searchByEtat(@PathVariable Exemplaire.Etat etat) {
         List<Exemplaire> exemplaires = exemplaireService.getByEtat(etat);
         return ResponseEntity.ok(exemplaires);
     }
@@ -87,7 +79,7 @@ public class ExemplaireController {
     // GET /api/exemplaires/disponibles → Récupérer les exemplaires disponibles
     @GetMapping("/disponibles")
     public ResponseEntity<List<Exemplaire>> getDisponibles() {
-        List<Exemplaire> exemplaires = exemplaireService.getByEtat(Exemplaire.Etat.NEUF); // Exemple : filtrer par état "NEUF"
-        return ResponseEntity.ok(exemplaires);
+        List<Exemplaire> exemplairesDisponibles = exemplaireService.getDisponibleTrue();
+        return ResponseEntity.ok(exemplairesDisponibles);
     }
 }

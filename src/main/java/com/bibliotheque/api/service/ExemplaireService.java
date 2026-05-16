@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.bibliotheque.api.dto.ExemplaireRequest;
 import com.bibliotheque.api.entity.Exemplaire;
+import com.bibliotheque.api.entity.Livre;
 import com.bibliotheque.api.repository.ExemplaireRepository;
+import com.bibliotheque.api.repository.LivreRepository;
 
 @Service    // Indique que cette classe est un service Spring
 public class ExemplaireService {
@@ -16,8 +18,11 @@ public class ExemplaireService {
     @Autowired    // Spring injecte automatiquement le repository
     private ExemplaireRepository exemplaireRepository;
 
+    @Autowired 
+    private LivreRepository livreRepository;
+
     // Récupérer tous les exemplaires
-    public List<Exemplaire> getAllExemplaire() {
+    public List<Exemplaire> getAllExemplaires() {
         return exemplaireRepository.findAll();
     }
 
@@ -31,6 +36,11 @@ public class ExemplaireService {
         Exemplaire exemplaire = new Exemplaire();
         exemplaire.setEtat(request.getEtat());
         exemplaire.setDisponible(request.isDisponible());
+        if(request.getLivreId() != null) {
+            Livre livre = livreRepository.findById(request.getLivreId())
+                    .orElseThrow(() -> new IllegalArgumentException("Livre introuvable avec l'id : " + request.getLivreId()));
+            exemplaire.setLivre(livre);
+        }
         return exemplaireRepository.save(exemplaire);
     }
 
@@ -55,5 +65,9 @@ public class ExemplaireService {
     // Filtrer par etat
     public List<Exemplaire> getByEtat(Exemplaire.Etat etat) {
         return exemplaireRepository.findByEtat(etat);
+    }
+
+    public List<Exemplaire> getDisponibleTrue() {
+        return exemplaireRepository.findByDisponible(true);
     }
 }
