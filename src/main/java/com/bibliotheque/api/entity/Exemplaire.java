@@ -39,6 +39,6 @@ public class Exemplaire {
     // Relations
     
     @ManyToOne
-    @JoinColumn(name = "livre_id")
+    @JoinColumn(name = "livre_id", nullable = false)
     private Livre livre;
 }

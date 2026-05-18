@@ -2,6 +2,8 @@ package com.bibliotheque.api.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,4 +36,12 @@ public class Utilisateur {
     @Column(name = "numeroAdherent", nullable = false, unique = true)
     @Min(value = 1, message = "Le numero d'adhérent doit être positif")
     private int numeroAdherent;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TypeUtilisateur type = TypeUtilisateur.PUBLIC;
+
+    public enum TypeUtilisateur {
+        ETUDIANT, PERSONNEL, PUBLIC
+    }
 }

@@ -50,12 +50,10 @@ public class LivreController {
         Livre nouveauLivre = livreService.createLivre(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(nouveauLivre);
     }
-
     
     // PUT /api/livres/{id} → Modifier un livre
     @PutMapping("/{id}")
-    public ResponseEntity<Livre> updateLivre(@PathVariable Long id,
-                                              @RequestBody Livre livre) {
+    public ResponseEntity<Livre> updateLivre(@PathVariable Long id, @RequestBody Livre livre) {
         return livreService.updateLivre(id, livre)
                 .map(livreModifie -> ResponseEntity.ok(livreModifie))
                 .orElse(ResponseEntity.notFound().build());

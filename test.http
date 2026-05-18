@@ -87,20 +87,14 @@ Content-Type: application/json
   "auteurId": 1
 }
 
-###
-
-# UTILISATEURS
+### >>> UTILISATEURS <<<
 // Lister tous les utilisateurs
 GET http://localhost:8080/api/utilisateurs
 
-###
-
-// Récupérer un utilisateur par ID
+### Récupérer un utilisateur par ID
 GET http://localhost:8080/api/utilisateurs/1
 
-###
-
-// Créer un utilisateur
+### Créer un utilisateur
 POST http://localhost:8080/api/utilisateurs
 Content-Type: application/json
 
@@ -110,9 +104,7 @@ Content-Type: application/json
   "numeroAdherent": 12345
 }
 
-###
-
-// Modifier un utilisateur
+### Modifier un utilisateur
 PUT http://localhost:8080/api/utilisateurs/1
 Content-Type: application/json
 
@@ -122,25 +114,17 @@ Content-Type: application/json
   "numeroAdherent": 54321
 }
 
-###
-
-// Supprimer un utilisateur
+### Supprimer un utilisateur
 DELETE http://localhost:8080/api/utilisateurs/1
 
-###
-
-# EXEMPLAIRES
+### >>> EXEMPLAIRES <<<
 // Lister tous les exemplaires
 GET http://localhost:8080/api/exemplaires
 
-###
-
-// Récupérer un exemplaire par ID
+### Récupérer un exemplaire par ID
 GET http://localhost:8080/api/exemplaires/1
 
-###
-
-// Créer un exemplaire
+### Créer un exemplaire
 POST http://localhost:8080/api/exemplaires
 Content-Type: application/json
 
@@ -149,9 +133,7 @@ Content-Type: application/json
   "disponible": true
 }
 
-###
-
-// Modifier un exemplaire
+### Modifier un exemplaire
 PUT http://localhost:8080/api/exemplaires/1
 Content-Type: application/json
 
@@ -160,9 +142,7 @@ Content-Type: application/json
   "disponible": false
 }
 
-###
-
-// Créer un exemplaire lié à un livre
+### Créer un exemplaire lié à un livre
 POST http://localhost:8080/api/exemplaires
 Content-Type: application/json
 
@@ -172,7 +152,5 @@ Content-Type: application/json
   "livreId": 3
 }
 
-###
-
-// Supprimer un exemplaire
+### Supprimer un exemplaire
 DELETE http://localhost:8080/api/exemplaires/4

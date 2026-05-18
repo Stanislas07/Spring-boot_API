@@ -33,14 +33,14 @@ public class ExemplaireService {
 
     // Créer un nouveau exemplaire
     public Exemplaire createExemplaire(ExemplaireRequest request) {
+        Livre livre = livreRepository.findById(request.getLivreId())
+                    .orElseThrow(() -> new IllegalArgumentException("Livre introuvable avec l'id : " + request.getLivreId()));
+        
         Exemplaire exemplaire = new Exemplaire();
         exemplaire.setEtat(request.getEtat());
         exemplaire.setDisponible(request.isDisponible());
-        if(request.getLivreId() != null) {
-            Livre livre = livreRepository.findById(request.getLivreId())
-                    .orElseThrow(() -> new IllegalArgumentException("Livre introuvable avec l'id : " + request.getLivreId()));
-            exemplaire.setLivre(livre);
-        }
+        exemplaire.setLivre(livre);
+        
         return exemplaireRepository.save(exemplaire);
     }
 

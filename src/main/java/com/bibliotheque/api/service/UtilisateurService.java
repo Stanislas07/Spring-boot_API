@@ -31,6 +31,7 @@ public class UtilisateurService {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(request.getNom());
         utilisateur.setPrenom(request.getPrenom());
+        utilisateur.setType(request.getType());
         utilisateur.setNumeroAdherent(request.getNumeroAdherent());
         return utilisateurRepository.save(utilisateur);
     }
@@ -41,6 +42,7 @@ public class UtilisateurService {
             utilisateurExistant.setNom(utilisateurModifie.getNom());
             utilisateurExistant.setPrenom(utilisateurModifie.getPrenom());
             utilisateurExistant.setNumeroAdherent(utilisateurModifie.getNumeroAdherent());
+            utilisateurExistant.setType(utilisateurModifie.getType());
             return utilisateurRepository.save(utilisateurExistant);
         });
     }
@@ -67,5 +69,10 @@ public class UtilisateurService {
     // Filtrer par numéro d'adhérent
     public List<Utilisateur> findByNumeroAdherent(int numeroAdherent) {
         return utilisateurRepository.findByNumeroAdherent(numeroAdherent);
+    }
+
+    // fIltrer pas type
+    public List<Utilisateur> findByType(Utilisateur.TypeUtilisateur type) {
+        return utilisateurRepository.findByType(type);
     }
 }
