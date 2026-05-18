@@ -1,15 +1,14 @@
+# ==========================================
 # LIVRES
-// Lister tous les livres
+# ==========================================
+
+### Lister tous les livres
 GET http://localhost:8080/api/livres
 
-###
-
-# Récupérer un livre par ID
+###  Récupérer un livre par ID
 GET http://localhost:8080/api/livres/1
 
-###
-
-// Créer un livre
+### Créer un livre
 POST http://localhost:8080/api/livres
 Content-Type: application/json
 
@@ -19,9 +18,7 @@ Content-Type: application/json
   "categorie": "ROMAN"
 }
 
-###
-
-// Modifier un livre
+### Modifier un livre
 PUT http://localhost:8080/api/livres/1
 Content-Type: application/json
 
@@ -31,77 +28,82 @@ Content-Type: application/json
   "categorie": "ROMAN"
 }
 
-###
-
-// Supprimer un livre
+### Supprimer un livre
 DELETE http://localhost:8080/api/livres/1
 
-###
-
-// Rechercher un livre par titre
+### Rechercher un livre par titre
 GET http://localhost:8080/api/livres/search?titre=harry
 
-###
+### Filtrer par catégorie
+GET http://localhost:8080/api/livres/categorie/ROMAN
 
-// Filtrer par catégorie
-GET http://localhost:8080/api/livres/categorie/MANGA
-
-###
-
-// Créer un livre sans titre (test validation)
-POST http://localhost:8080/api/livres
-Content-Type: application/json
-
-{
-  "titre": "",
-  "isbn": "978-2-07-054127-4",
-  "categorie": "ROMAN"
-}
-
-###
-
+# ==========================================
 # AUTEURS
-// Lister tous les auteurs
+# ==========================================
+
+### Lister tous les auteurs
 GET http://localhost:8080/api/auteurs
 
-###
-
-// Créer un auteur
+### Créer un auteur
 POST http://localhost:8080/api/auteurs
 Content-Type: application/json
 
 {
-  "nom": "Jean",
-  "prenom": "Paul"
+  "nom": "Rowling",
+  "prenom": "J.K."
 }
-###
 
-// Créer un livre avec un auteur existant
+### Créer un livre avec un auteur existant
 POST http://localhost:8080/api/livres
 Content-Type: application/json
 
 {
-  "titre": "Harry Potter",
-  "isbn": "978-2-07-054127-4",
+  "titre": "Harry Potter et la Chambre des Secrets",
+  "isbn": "978-2-07-054126-7",
   "categorie": "ROMAN",
   "auteurId": 1
 }
 
-### >>> UTILISATEURS <<<
-// Lister tous les utilisateurs
+# ==========================================
+# UTILISATEURS
+# ==========================================
+
+### Lister tous les utilisateurs
 GET http://localhost:8080/api/utilisateurs
 
 ### Récupérer un utilisateur par ID
 GET http://localhost:8080/api/utilisateurs/1
 
-### Créer un utilisateur
+### Créer un utilisateur (type par défaut : PUBLIC)
 POST http://localhost:8080/api/utilisateurs
 Content-Type: application/json
 
 {
   "nom": "Doe",
   "prenom": "John",
-  "numeroAdherent": 12345
+  "email": "john.doe@email.com"
+}
+
+### Créer un utilisateur ETUDIANT
+POST http://localhost:8080/api/utilisateurs
+Content-Type: application/json
+
+{
+  "nom": "Martin",
+  "prenom": "Alice",
+  "email": "alice.martin@universite.fr",
+  "type": "ETUDIANT"
+}
+
+### Créer un utilisateur PERSONNEL
+POST http://localhost:8080/api/utilisateurs
+Content-Type: application/json
+
+{
+  "nom": "Bernard",
+  "prenom": "Paul",
+  "email": "paul.bernard@bibliotheque.fr",
+  "type": "PERSONNEL"
 }
 
 ### Modifier un utilisateur
@@ -111,46 +113,102 @@ Content-Type: application/json
 {
   "nom": "Doe",
   "prenom": "Jane",
-  "numeroAdherent": 54321
+  "email": "jane.doe@email.com",
+  "type": "ETUDIANT"
 }
 
 ### Supprimer un utilisateur
 DELETE http://localhost:8080/api/utilisateurs/1
 
-### >>> EXEMPLAIRES <<<
-// Lister tous les exemplaires
+# ==========================================
+# EXEMPLAIRES
+# ==========================================
+
+### Lister tous les exemplaires
 GET http://localhost:8080/api/exemplaires
 
 ### Récupérer un exemplaire par ID
 GET http://localhost:8080/api/exemplaires/1
 
-### Créer un exemplaire
+### Créer un exemplaire lié à un livre (état par défaut : DISPONIBLE)
 POST http://localhost:8080/api/exemplaires
 Content-Type: application/json
 
 {
-  "etat": "NEUF",
-  "disponible": true
+  "livreId": 1
 }
 
-### Modifier un exemplaire
+### Créer un exemplaire avec un état spécifique
+POST http://localhost:8080/api/exemplaires
+Content-Type: application/json
+
+{
+  "livreId": 1,
+  "etat": "EN_REPARATION"
+}
+
+### Modifier l'état d'un exemplaire
 PUT http://localhost:8080/api/exemplaires/1
 Content-Type: application/json
 
 {
-  "etat": "MAUVAIS",
-  "disponible": false
-}
-
-### Créer un exemplaire lié à un livre
-POST http://localhost:8080/api/exemplaires
-Content-Type: application/json
-
-{
-  "etat": "BON",
-  "disponible": true,
-  "livreId": 3
+  "etat": "EN_REPARATION"
 }
 
 ### Supprimer un exemplaire
-DELETE http://localhost:8080/api/exemplaires/4
+DELETE http://localhost:8080/api/exemplaires/1
+
+# ==========================================
+# EMPRUNTS
+# ==========================================
+
+### Lister tous les emprunts
+GET http://localhost:8080/api/emprunts
+
+### Récupérer un emprunt par ID
+GET http://localhost:8080/api/emprunts/1
+
+### Lister les emprunts en cours (non retournés)
+GET http://localhost:8080/api/emprunts/en-cours
+
+### Lister les emprunts d'un utilisateur
+GET http://localhost:8080/api/emprunts/utilisateur/1
+
+### Créer un emprunt (exemplaire doit être DISPONIBLE)
+POST http://localhost:8080/api/emprunts
+Content-Type: application/json
+
+{
+  "exemplaireId": 1,
+  "utilisateurId": 1,
+  "dateRetourPrevue": "2025-06-19"
+}
+
+### Créer un emprunt sur un exemplaire déjà emprunté (doit retourner 409)
+POST http://localhost:8080/api/emprunts
+Content-Type: application/json
+
+{
+  "exemplaireId": 1,
+  "utilisateurId": 2,
+  "dateRetourPrevue": "2025-06-19"
+}
+
+### Créer un emprunt avec un exemplaire inexistant (doit retourner 404)
+POST http://localhost:8080/api/emprunts
+Content-Type: application/json
+
+{
+  "exemplaireId": 999,
+  "utilisateurId": 1,
+  "dateRetourPrevue": "2025-06-19"
+}
+
+### Retourner un exemplaire (enregistre la date de retour effective)
+PATCH http://localhost:8080/api/emprunts/1/retour
+
+### Retourner un exemplaire déjà retourné (doit retourner 409)
+PATCH http://localhost:8080/api/emprunts/1/retour
+
+### Supprimer un emprunt
+DELETE http://localhost:8080/api/emprunts/1

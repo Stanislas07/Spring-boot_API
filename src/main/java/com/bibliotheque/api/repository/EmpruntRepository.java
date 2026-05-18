@@ -1,4 +1,3 @@
-// repository/EmpruntRepository.java
 package com.bibliotheque.api.repository;
 
 import com.bibliotheque.api.entity.Emprunt;

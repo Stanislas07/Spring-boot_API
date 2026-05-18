@@ -1,78 +1,38 @@
+// service/UtilisateurService.java
 package com.bibliotheque.api.service;
 
+import com.bibliotheque.api.entity.Utilisateur;
+import com.bibliotheque.api.repository.UtilisateurRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.bibliotheque.api.dto.UtilisateurRequest;
-import com.bibliotheque.api.entity.Utilisateur;
-import com.bibliotheque.api.repository.UtilisateurRepository;
-
-@Service    // Indique que cette classe est un service Spring
+@Service
 public class UtilisateurService {
 
-    @Autowired    // Spring injecte automatiquement le repository
+    @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    // Récupérer tous les utilisateurs
-    public List<Utilisateur> getAllUtilisateurs() {
-        return utilisateurRepository.findAll();
-    }
+    public List<Utilisateur> getAllUtilisateurs() { return utilisateurRepository.findAll(); }
+    public Optional<Utilisateur> getUtilisateurById(Long id) { return utilisateurRepository.findById(id); }
+    public Utilisateur createUtilisateur(Utilisateur u) { return utilisateurRepository.save(u); }
 
-    // Récupérer un livre par son ID
-    public Optional<Utilisateur> getUtilisateurById(Long id) {
-        return utilisateurRepository.findById(id);
-    }
-
-    // Créer un nouveau livre
-    public Utilisateur createUtilisateur(UtilisateurRequest request) {
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setNom(request.getNom());
-        utilisateur.setPrenom(request.getPrenom());
-        utilisateur.setType(request.getType());
-        utilisateur.setNumeroAdherent(request.getNumeroAdherent());
-        return utilisateurRepository.save(utilisateur);
-    }
-
-    // Modifier un livre existant
-    public Optional<Utilisateur> updateUtilisateur(Long id, Utilisateur utilisateurModifie) {
-        return utilisateurRepository.findById(id).map(utilisateurExistant -> {
-            utilisateurExistant.setNom(utilisateurModifie.getNom());
-            utilisateurExistant.setPrenom(utilisateurModifie.getPrenom());
-            utilisateurExistant.setNumeroAdherent(utilisateurModifie.getNumeroAdherent());
-            utilisateurExistant.setType(utilisateurModifie.getType());
-            return utilisateurRepository.save(utilisateurExistant);
+    public Optional<Utilisateur> updateUtilisateur(Long id, Utilisateur modifie) {
+        return utilisateurRepository.findById(id).map(existant -> {
+            existant.setNom(modifie.getNom());
+            existant.setPrenom(modifie.getPrenom());
+            existant.setEmail(modifie.getEmail());
+            existant.setType(modifie.getType());
+            return utilisateurRepository.save(existant);
         });
     }
 
-    // Supprimer un utilisateur
     public boolean deleteUtilisateur(Long id) {
         if (utilisateurRepository.existsById(id)) {
             utilisateurRepository.deleteById(id);
             return true;
         }
         return false;
-    }
-
-    // Rechercher des utilisateurs par titre
-    public List<Utilisateur> searchByNom(String nom) {
-        return utilisateurRepository.findByNomContainingIgnoreCase(nom);
-    }
-
-    // Filtrer par prenom
-    public List<Utilisateur> getByCategorie(String prenom) {
-        return utilisateurRepository.findByPrenom(prenom);
-    }
-
-    // Filtrer par numéro d'adhérent
-    public List<Utilisateur> findByNumeroAdherent(int numeroAdherent) {
-        return utilisateurRepository.findByNumeroAdherent(numeroAdherent);
-    }
-
-    // fIltrer pas type
-    public List<Utilisateur> findByType(Utilisateur.TypeUtilisateur type) {
-        return utilisateurRepository.findByType(type);
     }
 }
