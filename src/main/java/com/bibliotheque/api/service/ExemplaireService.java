@@ -38,7 +38,6 @@ public class ExemplaireService {
         
         Exemplaire exemplaire = new Exemplaire();
         exemplaire.setEtat(request.getEtat());
-        exemplaire.setDisponible(request.isDisponible());
         exemplaire.setLivre(livre);
         
         return exemplaireRepository.save(exemplaire);
@@ -48,7 +47,6 @@ public class ExemplaireService {
     public Optional<Exemplaire> updateExemplaire(Long id, Exemplaire exemplaireModifie) {
         return exemplaireRepository.findById(id).map(exemplaireExistant -> {
             exemplaireExistant.setEtat(exemplaireModifie.getEtat());
-            exemplaireExistant.setDisponible(exemplaireModifie.isDisponible());
             return exemplaireRepository.save(exemplaireExistant);
         });
     }
@@ -63,11 +61,7 @@ public class ExemplaireService {
     }
 
     // Filtrer par etat
-    public List<Exemplaire> getByEtat(Exemplaire.Etat etat) {
+    public List<Exemplaire> getByEtat(Exemplaire.EtatEnum etat) {
         return exemplaireRepository.findByEtat(etat);
-    }
-
-    public List<Exemplaire> getDisponibleTrue() {
-        return exemplaireRepository.findByDisponible(true);
     }
 }

@@ -10,35 +10,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity                    // Indique que cette classe est une table en BDD
-@Table(name = "exemplaires")    // Nom de la table
-@Data                      // Lombok : génère getters, setters, toString, equals, hashCode
-@NoArgsConstructor         // Lombok : génère le constructeur sans paramètres
-@AllArgsConstructor        // Lombok : génère le constructeur avec tous les paramètres
+// On utilise @Getter/@Setter séparément (pas @Data) car on ajoutera
+// @PostLoad plus tard, qui ne se comporte pas bien avec @Data + Hibernate.
+@Entity
+@Table(name = "exemplaires")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Exemplaire {
 
-    @Id                                                    // Clé primaire
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    // Auto-incrément
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)    // Stocke l'état comme texte (ex: "Neuf")
-    private Etat etat;
-
-    // Enumération des états (définie dans la même classe pour simplifier)
-    public enum Etat {
-        NEUF, BON, MAUVAIS
-    }
-
-    @Column(nullable = false)
-    private boolean disponible;
-
-    // Relations
-    
     @ManyToOne
     @JoinColumn(name = "livre_id", nullable = false)
     private Livre livre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EtatEnum etat = EtatEnum.DISPONIBLE;
+
+    public enum EtatEnum {
+        DISPONIBLE, EMPRUNTE, EN_REPARATION, RETIRE
+    }
 }

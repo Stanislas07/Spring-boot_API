@@ -71,15 +71,8 @@ public class ExemplaireController {
 
     // GET /api/exemplaires/etat/{etat} → Rechercher par état
     @GetMapping("/etat/{etat}")
-    public ResponseEntity<List<Exemplaire>> searchByEtat(@PathVariable Exemplaire.Etat etat) {
+    public ResponseEntity<List<Exemplaire>> searchByEtat(@PathVariable Exemplaire.EtatEnum etat) {
         List<Exemplaire> exemplaires = exemplaireService.getByEtat(etat);
         return ResponseEntity.ok(exemplaires);
-    }
-
-    // GET /api/exemplaires/disponibles → Récupérer les exemplaires disponibles
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<Exemplaire>> getDisponibles() {
-        List<Exemplaire> exemplairesDisponibles = exemplaireService.getDisponibleTrue();
-        return ResponseEntity.ok(exemplairesDisponibles);
     }
 }

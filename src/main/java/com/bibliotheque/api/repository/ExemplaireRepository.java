@@ -9,6 +9,6 @@ import com.bibliotheque.api.entity.Exemplaire;
 
 @Repository
 public interface ExemplaireRepository extends JpaRepository<Exemplaire, Long> {
-    List<Exemplaire> findByEtat(Exemplaire.Etat etat);
-    List<Exemplaire> findByDisponible(boolean disponible);
+    List<Exemplaire> findByLivreId(Long livreId);
+    List<Exemplaire> findByEtat(Exemplaire.EtatEnum etat);
 }
